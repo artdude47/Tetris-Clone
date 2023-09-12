@@ -10,7 +10,7 @@ public class GridManager : MonoBehaviour
     //Check if a position is within the grid boundary
     public bool IsInsideGrid(Vector2 position)
     {
-        return (position.x >= 0 && position.x < Width && position.y >= 0);
+        return (position.x >= 0 && position.x < Width && position.y >= 0 && position.y < Height);
     }
 
     //Check if a position is already occupied by a block
@@ -24,18 +24,27 @@ public class GridManager : MonoBehaviour
         return true;
     }
 
+    //Check if the top row is occupied
+    public bool IsTopRowOccupied()
+    {
+        for (int x = 0; x < Width; x++)
+        {
+            if (grid[x, Height - 1] != null)
+                return true;
+        }
+        return false;
+    }
+
     //Store a tetromino's position in the grid array
     public void StoreTetrominoInGrid(Transform tetromino)
     {
-        for (int y = 0; y < Height; y++)
+        foreach (Transform block in tetromino)
         {
-            for (int x = 0; x < Width; x++)
-            {
-                if (tetromino.GetChild(0).position.x == x && tetromino.GetChild(0).position.y == y)
-                {
-                    grid[x, y] = tetromino;
-                }
-            }
+            int roundedX = Mathf.RoundToInt(block.position.x);
+            int roundedY = Mathf.RoundToInt(block.position.y);
+
+            if (IsInsideGrid(new Vector2(roundedX, roundedY)))
+                grid[roundedX, roundedY] = block;
         }
     }
 
@@ -93,5 +102,15 @@ public class GridManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public int GetWidth()
+    {
+        return Width;
+    }
+
+    public int GetHeight()
+    {
+        return Height;
     }
 }
