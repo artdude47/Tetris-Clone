@@ -6,6 +6,12 @@ public class GridManager : MonoBehaviour
     public static int Width = 10;
     public static int Height = 20;
     private Transform[,] grid = new Transform[Width, Height];
+    private ScoreManager scoreManager;
+
+    private void Start()
+    {
+        scoreManager = FindObjectOfType<ScoreManager>();
+    }
 
     //Check if a position is within the grid boundary
     public bool IsInsideGrid(Vector2 position)
@@ -52,7 +58,7 @@ public class GridManager : MonoBehaviour
     public int ClearFilledLines()
     {
         int clearedLines = 0;
-        for (int y = 0; y < Height; y++)
+        for (int y = 0; y < Height;)
         {
             if (IsLineFilled(y))
             {
@@ -60,7 +66,15 @@ public class GridManager : MonoBehaviour
                 DeleteLine(y);
                 MoveLinesDown(y);
             }
+            else
+            {
+                y++;
+            }
         }
+
+        if (clearedLines > 0)
+            scoreManager.AddScore(clearedLines);
+
         return clearedLines;
     }
 

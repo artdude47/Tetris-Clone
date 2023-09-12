@@ -16,6 +16,6 @@ public class Spawner : MonoBehaviour
     {
         int randomIndex = Random.Range(0, tetrominoes.Length);
 
-        Instantiate(tetrominoes[randomIndex], spawnPos, Quaternion.identity);
+        Instantiate(tetrominoes[0], spawnPos, Quaternion.identity);
     }
 }
