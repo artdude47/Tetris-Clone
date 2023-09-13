@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1663915844547216701}
   - component: {fileID: 4089912239919713163}
+  - component: {fileID: -5892578162921312312}
   m_Layer: 0
   m_Name: Z-Tetromino
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   - {fileID: 5739168929351551671}
   - {fileID: 8421302988014378542}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4089912239919713163
 MonoBehaviour:
@@ -50,6 +51,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationPoint: {x: 0, y: 0, z: 0}
   fallTime: 1
+--- !u!95 &-5892578162921312312
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4474168496245569824}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 95cd658262e78b64b82c3d4189ecc238, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &2538310864770097062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -105,6 +127,18 @@ PrefabInstance:
     - target: {fileID: 2595847448356451542, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
       propertyPath: m_Name
       value: Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7924528
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -172,6 +206,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7924528
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -238,6 +284,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Block
       objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7924528
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -303,6 +361,18 @@ PrefabInstance:
     - target: {fileID: 2595847448356451542, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
       propertyPath: m_Name
       value: Block (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.22054112
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216586883540561829, guid: 45a1494e6fa229e41a3e90e248c46be8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.7924528
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

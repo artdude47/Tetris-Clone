@@ -7,15 +7,10 @@ public class Spawner : MonoBehaviour
     public GameObject[] tetrominoes;
     private Vector2 spawnPos = new Vector2(5, 22);
 
-    private void Start()
-    {
-        SpawnTetromino();
-    }
-
     public void SpawnTetromino()
     {
         int randomIndex = Random.Range(0, tetrominoes.Length);
 
-        Instantiate(tetrominoes[0], spawnPos, Quaternion.identity);
+        Instantiate(tetrominoes[randomIndex], spawnPos, Quaternion.identity);
     }
 }

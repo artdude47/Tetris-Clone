@@ -4,6 +4,16 @@ public class ScoreManager : MonoBehaviour
 {
     [SerializeField]
     private int score = 0;
+    public int Score { get { return score; } }
+
+    private UIManager uiManager;
+
+    private void Start()
+    {
+        uiManager = FindObjectOfType<UIManager>();
+
+        uiManager.UpdateScore();
+    }
 
     public void AddScore(int linesCleared)
     {
@@ -22,5 +32,12 @@ public class ScoreManager : MonoBehaviour
                 score += 1200;
                 break;
         }
+
+        uiManager.UpdateScore();
+    }
+
+    public void ResetScore()
+    {
+        score = 0;
     }
 }
