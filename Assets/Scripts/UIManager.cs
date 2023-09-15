@@ -68,6 +68,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScore()
     {
+        if (scoreManager == null)
+            scoreManager = FindObjectOfType<ScoreManager>();
         if (currentScoreText != null)
             currentScoreText.text = $"Score: {scoreManager.Score.ToString()}";
     }

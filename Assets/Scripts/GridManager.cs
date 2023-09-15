@@ -7,10 +7,12 @@ public class GridManager : MonoBehaviour
     public static int Height = 20;
     private Transform[,] grid = new Transform[Width, Height];
     private ScoreManager scoreManager;
+    private AnimationManager animationManager;
 
     private void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
+        animationManager = FindObjectOfType<AnimationManager>();
     }
 
     //Check if a position is within the grid boundary
