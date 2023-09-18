@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+using System.Collections.Generic;
 
 public class GridManager : MonoBehaviour
 {
@@ -7,12 +8,12 @@ public class GridManager : MonoBehaviour
     public static int Height = 20;
     private Transform[,] grid = new Transform[Width, Height];
     private ScoreManager scoreManager;
-    private AnimationManager animationManager;
+
+    private List<int> rowsToClear = new List<int>();
 
     private void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-        animationManager = FindObjectOfType<AnimationManager>();
     }
 
     //Check if a position is within the grid boundary
@@ -57,27 +58,88 @@ public class GridManager : MonoBehaviour
     }
 
     //Check and remove filled lines
-    public int ClearFilledLines()
+    public void ClearFilledLines()
     {
-        int clearedLines = 0;
-        for (int y = 0; y < Height;)
+        rowsToClear.Clear();
+
+        for (int y = 0; y < Height; y++)
         {
             if (IsLineFilled(y))
+                rowsToClear.Add(y);
+        }
+
+        if (rowsToClear.Count > 0)
+        {
+            FlashAndDeleteLine(rowsToClear);
+            scoreManager.AddScore(rowsToClear.Count);
+        }
+    }
+
+    private void FlashAndDeleteLine(List<int> rows)
+    {
+        //Create a sequence for each line
+        foreach (int y in rows)
+        {
+            Sequence flashingSequence = DOTween.Sequence();
+
+            //Add flashing effect to sequence 3 times
+            for (int i = 0; i < 3; i++)
             {
-                clearedLines++;
-                DeleteLine(y);
-                MoveLinesDown(y);
-            }
-            else
-            {
-                y++;
+                flashingSequence.Append(DOTween.To(() => GetBlocksAlpha(y), alpha => SetBlocksAlpha(y, alpha), 0, 0.1f)); // fade out
+                flashingSequence.Append(DOTween.To(() => GetBlocksAlpha(y), alpha => SetBlocksAlpha(y, alpha), 1, 0.1f)); // fade in
             }
         }
 
-        if (clearedLines > 0)
-            scoreManager.AddScore(clearedLines);
+        //Once all sequences are completed process cleared lines
+        DOTween.Sequence().AppendInterval(0.7f).OnComplete(() => ProcessClearedLines());
+    }
 
-        return clearedLines;
+    private void ProcessClearedLines()
+    {
+        List<int> clearedRows = new List<int>();
+
+        //detect and mark cleared lines
+        for (int y = 0; y < Height; y++)
+        {
+            if (IsLineFilled(y))
+            {
+                clearedRows.Add(y);
+            }
+        }
+
+        //Delete the lines and shift above lines down
+        for (int i = clearedRows.Count - 1; i >= 0; i--)
+        {
+            int row = clearedRows[i];
+            DeleteLine(row);
+
+            for (int j = row; j < Height - 1; j++)
+            {
+                MoveLineDown(j + 1);
+            }
+        }
+    }
+
+    private float GetBlocksAlpha(int y)
+    {
+        if (grid[0, y] && grid[0, y].GetComponent<Renderer>())
+        {
+            return grid[0, y].GetComponent<Renderer>().material.color.a;
+        }
+        return 1f;
+    }
+
+    private void SetBlocksAlpha(int y, float alpha)
+    {
+        for (int x = 0; x < Width; x++)
+        {
+            if (grid[x, y] && grid[x, y].GetComponent<Renderer>())
+            {
+                Color blockColor = grid[x, y].GetComponent<Renderer>().material.color;
+                blockColor.a = alpha;
+                grid[x, y].GetComponent<Renderer>().material.color = blockColor;
+            }
+        }
     }
 
     //Check if line is filled
@@ -98,24 +160,28 @@ public class GridManager : MonoBehaviour
     {
         for (int x = 0; x < Width; x++)
         {
-            Destroy(grid[x, y].gameObject);
-            grid[x, y] = null;
+            if (grid[x, y] != null)
+            {
+                Destroy(grid[x, y].gameObject);
+                grid[x, y] = null;
+            }
         }
     }
+ 
 
-    //Shift lines down;
-    private void MoveLinesDown(int fromRow)
+    private void MoveLineDown(int y)
     {
-        for (int y = fromRow; y < Height - 1; y++)
+        if (y <= 0)
+            return;
+
+        for (int x = 0; x < Width; x++)
         {
-            for (int x = 0; x < Width; x++)
+            if (grid[x,y] != null)
             {
-                if (grid[x, y + 1] != null)
-                {
-                    grid[x, y] = grid[x, y + 1];
-                    grid[x, y + 1] = null;
-                    grid[x, y].position += new Vector3(0, -1, 0);
-                }
+                grid[x, y - 1] = grid[x, y];
+                grid[x, y] = null;
+
+                grid[x, y - 1].position += new Vector3(0, -1, 0);
             }
         }
     }
