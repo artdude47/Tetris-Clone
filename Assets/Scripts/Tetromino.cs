@@ -46,6 +46,7 @@ public class Tetromino : MonoBehaviour
     private void Update()
     {
         HandleUserInput();
+
     }
 
     private void HandleUserInput()
