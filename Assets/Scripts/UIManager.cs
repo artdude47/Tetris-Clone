@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -11,13 +12,14 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI highScoreText;
     public TextMeshProUGUI gameOverScoreText;
     public TextMeshProUGUI gameOverHighScoreText;
+    public List<GameObject> nextPiece = new List<GameObject>();
 
     private ScoreManager scoreManager;
 
     private void Start()
     {
         scoreManager = FindObjectOfType<ScoreManager>();
-
+        HideNextPiece();
         ShowMainMenu();
     }
 
@@ -96,5 +98,18 @@ public class UIManager : MonoBehaviour
     public void HandleQuitButton()
     {
         Application.Quit();
+    }
+
+    public void HideNextPiece()
+    {
+        foreach (GameObject p in nextPiece)
+        {
+            p.SetActive(false);
+        }
+    }
+
+    public void ShowNextPiece(int index)
+    {
+        nextPiece[index].SetActive(true);
     }
 }
